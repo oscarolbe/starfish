@@ -6,10 +6,16 @@ defmodule Starfish.Application do
   use Application
 
   def start(_type, _args) do
-    children = [
-      # Starts a worker by calling: Starfish.Worker.start_link(arg)
-      # {Starfish.Worker, arg}
-    ]
+    # For testing purposes
+    # The GenServer is started in the test
+    children =
+      if Mix.env() == :test do
+        []
+      else
+        [
+          {Starfish.Server, []}
+        ]
+      end
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
